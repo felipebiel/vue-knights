@@ -8,13 +8,13 @@
         <form>
             <v-layout wrap>
                 <v-flex xs12 sm6 px-3>
-                    <v-text-field v-model="form.name" :disabled="id" label="Nome" :error-messages='nameErrors'
+                    <v-text-field v-model="form.name" :disabled="id? true : false " label="Nome" :error-messages='nameErrors'
                         :loading="loading" required>
                     </v-text-field>
                     <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs12 sm6 px-3>
-                    <v-text-field v-model="form.nickname" :disabled="id" label="Apelido" :error-messages='nicknameErrors'
+                    <v-text-field v-model="form.nickname" label="Apelido" :error-messages='nicknameErrors'
                         :loading="loading" required>
                     </v-text-field>
                     <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
@@ -24,7 +24,7 @@
                         transition="scale-transition" offset-y min-width="290px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-text-field v-model="form.birthday" label="Nascimento" readonly
-                                v-bind="attrs" v-on="on" :error-messages="birthdayErrors"></v-text-field>
+                                v-bind="attrs" v-on="on" :error-messages="birthdayErrors" :disabled="id? true : false"></v-text-field>
                         </template>
                         <v-date-picker v-model="form.birthday" @input="menu2 = false"></v-date-picker>
                     </v-menu>

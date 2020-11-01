@@ -23,7 +23,18 @@ export default {
         };
 
     },
+    created () {
+        if(this.id) {            
+            this.$store.dispatch('getRead', { url: `/knights/${this.id}`})
+            .then(() => {
+                this.form = this.makeFormData();
+            })
+        }
+    },
     methods: {
+        makeFormData() {
+            return {...this.instance}
+        },
         makeDataPost() {
             return {...this.form}
         },
@@ -53,6 +64,9 @@ export default {
         }
     },
     computed: {
+        instance() {
+            return this.$store.state.getRead.instance;
+        },
         nameErrors() {
             const errors = []
             if (!this.$v.form.name.$dirty) return errors
