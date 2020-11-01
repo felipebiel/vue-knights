@@ -35,13 +35,13 @@
     <v-card-actions class="px-3">
         <v-layout wrap>
             <v-flex xs12 sm12 md4>
-                <v-btn v-if="id" dark class="error my-1 custom-width" @click="">
+                <v-btn v-if="id" dark class="error my-1" @click="">
                     Remover
                 </v-btn>
             </v-flex>
             <v-spacer class="hidden-xs-only"></v-spacer>
             <v-flex xs12 sm12 md8 class="text-xs-right">
-                <v-btn color="primary" @click="" :disabled="loading" class=" float-right my-1 ">Salvar </v-btn>
+                <v-btn color="primary" @click="saveForm" :disabled="loading" class=" float-right my-1 ">Salvar </v-btn>
             </v-flex>
         </v-layout>
     </v-card-actions>
