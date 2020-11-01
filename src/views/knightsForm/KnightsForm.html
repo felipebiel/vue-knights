@@ -28,6 +28,7 @@
                         </template>
                         <v-date-picker v-model="form.birthday" @input="menu2 = false"></v-date-picker>
                     </v-menu>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs12 sm6 px-3 mb-2>
                     <v-select v-model="form.keyAttribute" :disabled="id? true : false " :items="attributesList"
@@ -71,7 +72,7 @@
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
-                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.charisma" label="Sabedoria"
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.charisma" label="Carisma"
                         :error-messages='attributeCharismaErrors' :loading="loading" required :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
