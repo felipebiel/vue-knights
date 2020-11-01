@@ -61,6 +61,12 @@ export default {
                 .then(() => {
                     this.goToList();
                 });
+        },
+        remove() {
+            this.$store.dispatch('deleteRecord', { url: `/knights/${this.id}`})
+            .then(() => {
+                this.goToList();
+            })
         }
     },
     computed: {
