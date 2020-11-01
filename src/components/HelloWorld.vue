@@ -1,13 +1,11 @@
 <template>
   <v-container>
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <router-view></router-view>
   </v-container>
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld'
-  }
+export default {
+  name: "HelloWorld",
+};
 </script>
