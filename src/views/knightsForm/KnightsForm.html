@@ -1,8 +1,48 @@
 <v-card elevation="2">
     <v-card-title>
-        NOVO GUERREIRO
+        <div class="title font-weight-medium text-uppercase grey--text">
+            {{ !id ? 'criar' : 'editar' }} guerreiro
+        </div>
     </v-card-title>
     <v-card-text>
-        AQUI VEM O FORM
+        <form>
+            <v-layout wrap>
+                <v-flex xs12 sm6 px-3>
+                    <v-text-field v-model="form.name" :disabled="id" label="Nome" :error-messages='nameErrors'
+                        :loading="loading" required>
+                    </v-text-field>
+                    <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs12 sm6 px-3>
+                    <v-text-field v-model="form.nickname" :disabled="id" label="Apelido" :error-messages='nameErrors'
+                        :loading="loading" required>
+                    </v-text-field>
+                    <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs12 sm6 px-3>
+                    <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
+                        transition="scale-transition" offset-y min-width="290px">
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-text-field v-model="form.date" label="Nascimento" readonly
+                                v-bind="attrs" v-on="on"></v-text-field>
+                        </template>
+                        <v-date-picker v-model="form.date" @input="menu2 = false"></v-date-picker>
+                    </v-menu>
+                </v-flex>
+            </v-layout>
+        </form>
     </v-card-text>
+    <v-card-actions class="px-3">
+        <v-layout wrap>
+            <v-flex xs12 sm12 md4>
+                <v-btn v-if="id" dark class="error my-1 custom-width" @click="">
+                    Remover
+                </v-btn>
+            </v-flex>
+            <v-spacer class="hidden-xs-only"></v-spacer>
+            <v-flex xs12 sm12 md8 class="text-xs-right">
+                <v-btn color="primary" @click="" :disabled="loading" class=" float-right my-1 ">Salvar </v-btn>
+            </v-flex>
+        </v-layout>
+    </v-card-actions>
 </v-card>
