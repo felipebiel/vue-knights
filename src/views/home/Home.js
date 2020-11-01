@@ -11,7 +11,9 @@ export default {
                 },
                 { text: 'Idade', value: 'age' },
                 { text: 'Armas', value: 'weapons', sortable: false},
-                { text: 'Atributo', value: 'keyAttribute', sortable: false}
+                { text: 'Atributo', value: 'keyAttribute', sortable: false},
+                { text: 'Ataque', value: 'atack'},
+                { text: 'Experiência', value: 'experience'}
             ],
             dictAttribute: {
                 strength: 'Força',
@@ -49,6 +51,10 @@ export default {
             }
 
             return age < 0? 0 : age ;
+        },
+        geExperience(item) {
+            const exp = Math.floor((this.getAge(item.birthday) - 7) * Math.pow(22, 1.45))
+            return exp < 0? 0 : exp;
         }
     },
 }
