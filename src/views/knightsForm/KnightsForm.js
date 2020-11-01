@@ -17,6 +17,8 @@ export default {
         return {
             form: {
                 name: { required },
+                nickname: { required },
+                birthday: { required }
             },
         };
 
@@ -42,6 +44,18 @@ export default {
             const errors = []
             if (!this.$v.form.name.$dirty) return errors
             !this.$v.form.name.required && errors.push('Escreva um nome.')
+            return errors
+        },
+        nicknameErrors() {
+            const errors = []
+            if (!this.$v.form.nickname.$dirty) return errors
+            !this.$v.form.nickname.required && errors.push('Escreva um apelido.')
+            return errors
+        },
+        birthdayErrors() {
+            const errors = []
+            if (!this.$v.form.birthday.$dirty) return errors
+            !this.$v.form.birthday.required && errors.push('Escreva um nascimento.')
             return errors
         },
     },

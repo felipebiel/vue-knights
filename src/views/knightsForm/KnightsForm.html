@@ -14,7 +14,7 @@
                     <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs12 sm6 px-3>
-                    <v-text-field v-model="form.nickname" :disabled="id" label="Apelido" :error-messages='nameErrors'
+                    <v-text-field v-model="form.nickname" :disabled="id" label="Apelido" :error-messages='nicknameErrors'
                         :loading="loading" required>
                     </v-text-field>
                     <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
@@ -23,10 +23,10 @@
                     <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
                         transition="scale-transition" offset-y min-width="290px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-text-field v-model="form.date" label="Nascimento" readonly
-                                v-bind="attrs" v-on="on"></v-text-field>
+                            <v-text-field v-model="form.birthday" label="Nascimento" readonly
+                                v-bind="attrs" v-on="on" :error-messages="birthdayErrors"></v-text-field>
                         </template>
-                        <v-date-picker v-model="form.date" @input="menu2 = false"></v-date-picker>
+                        <v-date-picker v-model="form.birthday" @input="menu2 = false"></v-date-picker>
                     </v-menu>
                 </v-flex>
             </v-layout>
