@@ -8,40 +8,92 @@
         <form>
             <v-layout wrap>
                 <v-flex xs12 sm6 px-3>
-                    <v-text-field v-model="form.name" :disabled="id? true : false " label="Nome" :error-messages='nameErrors'
-                        :loading="loading" required>
+                    <v-text-field v-model="form.name" :disabled="id? true : false " label="Nome"
+                        :error-messages='nameErrors' :loading="loading" required>
                     </v-text-field>
-                    <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs12 sm6 px-3>
                     <v-text-field v-model="form.nickname" label="Apelido" :error-messages='nicknameErrors'
                         :loading="loading" required>
                     </v-text-field>
-                    <div v-if="id" class="grey--text read-only">{{ readonly }}</div>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs12 sm6 px-3>
                     <v-menu v-model="menu" :close-on-content-click="false" :nudge-right="40"
                         transition="scale-transition" offset-y min-width="290px">
                         <template v-slot:activator="{ on, attrs }">
-                            <v-text-field v-model="form.birthday" label="Nascimento" readonly
-                                v-bind="attrs" v-on="on" :error-messages="birthdayErrors" :disabled="id? true : false"></v-text-field>
+                            <v-text-field v-model="form.birthday" label="Nascimento" readonly v-bind="attrs" v-on="on"
+                                :error-messages="birthdayErrors" :disabled="id? true : false"></v-text-field>
                         </template>
                         <v-date-picker v-model="form.birthday" @input="menu2 = false"></v-date-picker>
                     </v-menu>
                 </v-flex>
+                <v-flex xs12 sm6 px-3 mb-2>
+                    <v-select v-model="form.keyAttribute" :disabled="id? true : false " :items="attributesList"
+                        item-text="name" label="Habilidade Especial" :loading="loading"
+                        :error-messages="keyAttributeErrors">
+                    </v-select>
+                    <div v-if="id? true : false " class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs12 px-3 class="text-uppercase form-section">
+                    Atributos
+                    <span></span>
+                </v-flex>
+                <v-flex xs6 sm4 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.strength" label="Força"
+                        :error-messages='attributeStrengthErrors' :loading="loading" required :disabled="id? true : false ">
+                    </v-text-field>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs6 sm4 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.dexterity" label="Destreza"
+                        :error-messages='attributeDexterityErrors' :loading="loading" required :disabled="id? true : false ">
+                    </v-text-field>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs6 sm4 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.constitution"
+                        label="Constituição" :error-messages='attributeConstitutionErrors' :loading="loading" required :disabled="id? true : false ">
+                    </v-text-field>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs6 sm4 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.intelligence"
+                        label="Inteligência" :error-messages='attributeIntelligenceErrors' :loading="loading" required :disabled="id? true : false ">
+                    </v-text-field>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs6 sm4 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.wisdom" label="Sabedoria"
+                        :error-messages='attributeWisdomErrors' :loading="loading" required :disabled="id? true : false ">
+                    </v-text-field>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs6 sm4 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="form.attributes.charisma" label="Sabedoria"
+                        :error-messages='attributeCharismaErrors' :loading="loading" required :disabled="id? true : false ">
+                    </v-text-field>
+                    <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
+                </v-flex>
+                <v-flex xs12 px-3 class="text-uppercase form-section">
+                    Armas
+                    <span></span>
+                </v-flex> 
             </v-layout>
         </form>
     </v-card-text>
     <v-card-actions class="px-3">
         <v-layout wrap>
             <v-flex xs12 sm12 md4>
-                <v-btn v-if="id" dark class="error my-1" @click="remove">
+                <v-btn v-if="id? true : false" dark class="error my-1" @click="remove">
                     Remover
                 </v-btn>
             </v-flex>
             <v-spacer class="hidden-xs-only"></v-spacer>
             <v-flex xs12 sm12 md8 class="text-xs-right">
-                <v-btn color="primary" @click="saveForm" :disabled="loading" class=" float-right my-1 ">{{ !id ? 'criar' : 'editar' }} </v-btn>
+                <v-btn color="primary" @click="saveForm" :disabled="loading" class=" float-right my-1 ">
+                    {{ !id ? 'criar' : 'editar' }} </v-btn>
             </v-flex>
         </v-layout>
     </v-card-actions>

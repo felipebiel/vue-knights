@@ -20,8 +20,8 @@
                     <td>{{ getAge(props.item.birthday) }}</td>
                     <td>{{ props.item.weapons? props.item.weapons.length : 0 }}</td>
                     <td>{{ dictAttribute[props.item.keyAttribute] }}</td>
-                    <td>NADA</td>
-                    <td>{{ geExperience(props.item) }}</td>
+                    <td>{{ getAtack(props.item) }}</td>
+                    <td>{{ getExperience(props.item) }}</td>
                 </tr>
             </template>
             <template v-slot:no-data>

@@ -1,0 +1,17 @@
+.form-section {
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    padding: 15px 15px 0px;
+    font-size: 7pt;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    span {
+        border-color: blue;
+        flex: 1;
+        border: 1px solid ;
+        height: 1px;
+        margin-left: 10px;
+    }
+}
