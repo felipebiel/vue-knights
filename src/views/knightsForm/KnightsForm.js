@@ -24,6 +24,9 @@ export default {
 
     },
     methods: {
+        makeDataPost() {
+            return {...this.form}
+        },
         saveForm() {
             try {
                 this.$v.form.$touch();
@@ -31,12 +34,22 @@ export default {
                     if (this.id) {
                         // EDITA
                     } else {
-                        // SALVA                        
+                        this.create();                  
                     }
                 }
             } catch (e) {
-                console.log('ActivitiesForm.js - submitForm():' + { e });
+                console.log(e);
             }
+        },
+        goToList() {
+            this.$router.push({name: 'Home'});
+        },
+        create() {
+            const data = this.makeDataPost();
+            this.$store.dispatch('saveRecord', { url: '/knights', data: data })
+                .then(() => {
+                    this.goToList();
+                });
         }
     },
     computed: {
