@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/home/Home.vue'
+import KnightsForm from '@/views/knightsForm/KnightsForm.vue'
 
 Vue.use(VueRouter)
 
@@ -10,6 +11,11 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/knight/add',
+    name: 'knight-add',
+    component: KnightsForm
+  }
 ]
 
 const router = new VueRouter({
