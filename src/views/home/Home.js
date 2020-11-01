@@ -10,12 +10,13 @@ export default {
                     value: 'name',
                 },
                 { text: 'Idade', value: 'age' },
+                { text: 'Armas', value: 'weapons', sortable: false}
             ],
         }
     },
     created() {
         this.$store.dispatch('getList', { url: '/knights/' })
-        
+
     },
     computed: {
         dataTable() {
@@ -24,10 +25,10 @@ export default {
     },
     methods: {
         goToCreate() {
-            this.$router.push({name: 'knight-add' })
+            this.$router.push({ name: 'knight-add' })
         },
         selectLine(item) {
-            this.$router.push({name: 'knight-edit', params: {id: item._id}})
+            this.$router.push({ name: 'knight-edit', params: { id: item._id } })
         },
         getAge(birthday) {
             const today = new Date();
@@ -38,7 +39,7 @@ export default {
                 age--;
             }
 
-            return age;
+            return age < 0? 0 : age ;
         }
     },
 }

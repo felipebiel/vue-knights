@@ -18,6 +18,7 @@
                 <tr @click="selectLine(props.item)">
                     <td>{{ props.item.name }}</td>
                     <td>{{ getAge(props.item.birthday) }}</td>
+                    <td>{{ props.item.weapons? props.item.weapons.length : 0 }}</td>
                 </tr>
             </template>
             <template v-slot:no-data>
