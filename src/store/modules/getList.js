@@ -1,3 +1,5 @@
+import { SERVER_HOST } from '@/settings/settings';
+
 export default {
     state: {
         list: [],
@@ -9,7 +11,15 @@ export default {
     },
     actions: {
         getList(context, params) {
-            return new Promise((resolve, reject) => {                
+            return new Promise((resolve, reject) => {
+                this._vm.$http.get(`${SERVER_HOST}${params.url}`)
+                    .then((response) => {
+                        context.commit('SET_LIST', response.data);
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        reject(error)
+                    })
             });
         },
     }
