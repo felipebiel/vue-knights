@@ -21,4 +21,9 @@ export default {
             return this.$store.state.getList.list
         }
     },
+    methods: {
+        goToCreate() {
+            this.$router.push({name: 'knight-add' })
+        }
+    },
 }
