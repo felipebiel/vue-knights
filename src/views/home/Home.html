@@ -1,17 +1,16 @@
 <v-card elevation="2">
     <v-card-title>
         Esse é o novo Home
-        {{ dataTable }} <v-icon>add</v-icon>
     </v-card-title>
     <v-card-text>
         <v-data-table :headers="headers" :items="dataTable" class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>My CRUD</v-toolbar-title>
+                    <v-toolbar-title>Meus Guerreiros</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <v-btn color="primary" dark class="mb-2">
-                        Novo
+                        Novo Guerreiro
                     </v-btn>
                 </v-toolbar>
             </template>
