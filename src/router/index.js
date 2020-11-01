@@ -15,6 +15,12 @@ const routes = [
     path: '/knight/add',
     name: 'knight-add',
     component: KnightsForm
+  },
+  {
+    path: '/knight/:id',
+    name: 'knight-edit',
+    props: true,
+    component: KnightsForm
   }
 ]
 

@@ -14,10 +14,19 @@
                     </v-btn>
                 </v-toolbar>
             </template>
+            <template v-slot:item="props">
+                <tr @click="selectLine(props.item)">
+                    <td>{{ props.item.name }}</td>
+                    <td>{{ props.item.nickname }}</td>
+                </tr>
+            </template>
             <template v-slot:no-data>
-                <v-btn color="primary" @click="">
-                    Reset
-                </v-btn>
+                <v-alert :value="true" class="alertData text-xs-center">
+                    Não há documentos cadastrados
+                </v-alert>
+            </template>
+            <template v-slot:no-data>
+                Sem guerreiros cadastrados
             </template>
         </v-data-table>
     </v-card-text>

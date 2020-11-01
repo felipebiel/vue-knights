@@ -24,6 +24,10 @@ export default {
     methods: {
         goToCreate() {
             this.$router.push({name: 'knight-add' })
+        },
+        selectLine(item) {
+            console.log(item);
+            this.$router.push({name: 'knight-edit', params: {id: item._id}})
         }
     },
 }
