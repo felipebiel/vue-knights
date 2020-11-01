@@ -1,7 +1,20 @@
 export default {
     name: 'Home',
-    created () {
-        this.$store.dispatch('getList', {url: '/knights/'})
+    data() {
+        return {
+            headers: [
+                {
+                    text: 'Nome',
+                    align: 'start',
+                    sortable: false,
+                    value: 'name',
+                },
+                { text: 'Apelido', value: 'nickname' },
+            ],
+        }
+    },
+    created() {
+        this.$store.dispatch('getList', { url: '/knights/' })
     },
     computed: {
         dataTable() {
