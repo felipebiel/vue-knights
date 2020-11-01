@@ -43,7 +43,7 @@ export default {
                 this.$v.form.$touch();
                 if (!this.$v.form.$invalid) {
                     if (this.id) {
-                        // EDITA
+                        this.edit();
                     } else {
                         this.create();                  
                     }
@@ -58,6 +58,13 @@ export default {
         create() {
             const data = this.makeDataPost();
             this.$store.dispatch('saveRecord', { url: '/knights', data: data })
+                .then(() => {
+                    this.goToList();
+                });
+        },
+        edit() {
+            const data = this.makeDataPost();
+            this.$store.dispatch('editRecord', { url: `/knights/${this.id}`, data: data })
                 .then(() => {
                     this.goToList();
                 });

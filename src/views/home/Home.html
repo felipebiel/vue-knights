@@ -17,7 +17,7 @@
             <template v-slot:item="props">
                 <tr @click="selectLine(props.item)">
                     <td>{{ props.item.name }}</td>
-                    <td>{{ props.item.nickname }}</td>
+                    <td>{{ getAge(props.item.birthday) }}</td>
                 </tr>
             </template>
             <template v-slot:no-data>

@@ -41,7 +41,7 @@
             </v-flex>
             <v-spacer class="hidden-xs-only"></v-spacer>
             <v-flex xs12 sm12 md8 class="text-xs-right">
-                <v-btn color="primary" @click="saveForm" :disabled="loading" class=" float-right my-1 ">Salvar </v-btn>
+                <v-btn color="primary" @click="saveForm" :disabled="loading" class=" float-right my-1 ">{{ !id ? 'criar' : 'editar' }} </v-btn>
             </v-flex>
         </v-layout>
     </v-card-actions>
