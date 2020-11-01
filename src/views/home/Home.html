@@ -19,6 +19,7 @@
                     <td>{{ props.item.name }}</td>
                     <td>{{ getAge(props.item.birthday) }}</td>
                     <td>{{ props.item.weapons? props.item.weapons.length : 0 }}</td>
+                    <td>{{ dictAttribute[props.item.keyAttribute] }}</td>
                 </tr>
             </template>
             <template v-slot:no-data>

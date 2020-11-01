@@ -10,8 +10,17 @@ export default {
                     value: 'name',
                 },
                 { text: 'Idade', value: 'age' },
-                { text: 'Armas', value: 'weapons', sortable: false}
+                { text: 'Armas', value: 'weapons', sortable: false},
+                { text: 'Atributo', value: 'keyAttribute', sortable: false}
             ],
+            dictAttribute: {
+                strength: 'Força',
+                dexterity: 'Destreza',
+                constitution: 'Constituição',
+                intelligence: 'Inteligência',
+                wisdom: 'Sabedoria',
+                charisma: 'Carisma',
+            }
         }
     },
     created() {
