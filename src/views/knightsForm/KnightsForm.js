@@ -83,6 +83,37 @@ export default {
         }
     },
     methods: {
+        alertDisplay() {
+            this.$swal('Sucesso!', 'Guerreiro salvo com sucesso!', 'success');
+        },
+        alertEdit() {
+            this.$swal('Sucesso!', 'Guerreiro editado com sucesso!', 'success');
+        },
+        async alertRemove() {
+            this.$swal({
+                title: '',
+                text: "Tem certeza que deseja excluir?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim'
+            }).then((result) => {
+                if (result.value) {
+                    this.loading = true;
+                    this.remove();
+                    setTimeout(() => {
+                        this.$swal(
+                            '',
+                            'Guerreiro deletado!',
+                            'success'
+                        );
+                        this.goToList();
+                    }, 1000);
+
+                }
+            })
+        },
         makeFormData() {
             return { ...this.instance }
         },
@@ -110,6 +141,7 @@ export default {
             const data = this.makeDataPost();
             this.$store.dispatch('saveRecord', { url: '/knights', data: data })
                 .then(() => {
+                    this.alertDisplay();
                     this.goToList();
                 });
         },
@@ -122,9 +154,6 @@ export default {
         },
         remove() {
             this.$store.dispatch('deleteRecord', { url: `/knights/${this.id}` })
-                .then(() => {
-                    this.goToList();
-                })
         },
         openNewItem() {
             this.dialogTitle = 'Nova Arma';
