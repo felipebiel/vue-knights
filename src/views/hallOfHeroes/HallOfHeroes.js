@@ -70,6 +70,9 @@ export default {
             } else if (value > 18 && value <= 20) {
                 return 3
             }
+        },
+        goToHome() {
+            this.$router.push({name: 'home'})
         }
 
     },

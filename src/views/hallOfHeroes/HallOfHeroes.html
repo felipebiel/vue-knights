@@ -1,16 +1,15 @@
 <v-card elevation="2">
     <v-card-title>
-        Esse é o novo Hall Of Heroes
+        <div class="font-weight-medium text-uppercase grey--text">
+            Hall dos Heróis
+        </div>
+        <v-spacer></v-spacer>
+        <v-btn class="mb-2" @click="goToHome">
+            Voltar
+        </v-btn>
     </v-card-title>
     <v-card-text>
-        <v-data-table :headers="headers" :items="dataTable" class="elevation-1">
-            <template v-slot:top>
-                <v-toolbar flat>
-                    <v-toolbar-title>Meus Herois</v-toolbar-title>
-                    <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-            </template>
+        <v-data-table :headers="headers" :items="dataTable" class="elevation-2">
             <template v-slot:item="props">
                 <tr>
                     <td>{{ props.item.name }}</td>
