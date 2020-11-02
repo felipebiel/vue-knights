@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         alertDisplay() {
-            this.$swal('Sucesso!', 'Guerreiro salvo com sucesso!', 'success');
+            this.$swal('Sucesso!', 'Guerreiro criado com sucesso!', 'success');
         },
         alertEdit() {
             this.$swal('Sucesso!', 'Guerreiro editado com sucesso!', 'success');
@@ -105,7 +105,7 @@ export default {
                     setTimeout(() => {
                         this.$swal(
                             '',
-                            'Guerreiro deletado!',
+                            'Esse guerreiro virou um herói!',
                             'success'
                         );
                         this.goToList();
