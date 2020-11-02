@@ -149,6 +149,7 @@ export default {
             const data = this.makeDataPost();
             this.$store.dispatch('editRecord', { url: `/knights/${this.id}`, data: data })
                 .then(() => {
+                    this.alertEdit();
                     this.goToList();
                 });
         },
