@@ -43,44 +43,82 @@
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
                     <v-text-field type="number" min="0" max="20" v-model="form.attributes.strength" label="Força"
-                        :error-messages='attributeStrengthErrors' :loading="loading" required :disabled="id? true : false ">
+                        :error-messages='attributeStrengthErrors' :loading="loading" required
+                        :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
                     <v-text-field type="number" min="0" max="20" v-model="form.attributes.dexterity" label="Destreza"
-                        :error-messages='attributeDexterityErrors' :loading="loading" required :disabled="id? true : false ">
+                        :error-messages='attributeDexterityErrors' :loading="loading" required
+                        :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
                     <v-text-field type="number" min="0" max="20" v-model="form.attributes.constitution"
-                        label="Constituição" :error-messages='attributeConstitutionErrors' :loading="loading" required :disabled="id? true : false ">
+                        label="Constituição" :error-messages='attributeConstitutionErrors' :loading="loading" required
+                        :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
                     <v-text-field type="number" min="0" max="20" v-model="form.attributes.intelligence"
-                        label="Inteligência" :error-messages='attributeIntelligenceErrors' :loading="loading" required :disabled="id? true : false ">
+                        label="Inteligência" :error-messages='attributeIntelligenceErrors' :loading="loading" required
+                        :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
                     <v-text-field type="number" min="0" max="20" v-model="form.attributes.wisdom" label="Sabedoria"
-                        :error-messages='attributeWisdomErrors' :loading="loading" required :disabled="id? true : false ">
+                        :error-messages='attributeWisdomErrors' :loading="loading" required
+                        :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs6 sm4 px-3 mb-2>
                     <v-text-field type="number" min="0" max="20" v-model="form.attributes.charisma" label="Carisma"
-                        :error-messages='attributeCharismaErrors' :loading="loading" required :disabled="id? true : false ">
+                        :error-messages='attributeCharismaErrors' :loading="loading" required
+                        :disabled="id? true : false ">
                     </v-text-field>
                     <div v-if="id? true : false" class="grey--text read-only">{{ readonly }}</div>
                 </v-flex>
                 <v-flex xs12 px-3 class="text-uppercase form-section">
                     Armas
                     <span></span>
-                </v-flex> 
+                </v-flex>
+
+                <v-flex xs12 px-3>
+                    <v-data-table :headers="headers" :items="form.weapons" class="elevation-1">
+                        <template v-slot:top>
+                            <v-toolbar flat>
+                                <v-toolbar-title>Armas</v-toolbar-title>
+                                <v-divider class="mx-4" inset vertical></v-divider>
+                                <v-spacer></v-spacer>
+                                <v-btn dark class="my-1" @click="openNewItem">
+                                    Nova arma
+                                </v-btn>
+                            </v-toolbar>
+                        </template>
+                        <template v-slot:item.actions="{ item }">
+                            <v-icon small class="mr-2" @click="selectItem(item)">
+                                mdi-pencil
+                            </v-icon>
+                            <v-icon small @click="deleteItem(item)">
+                                mdi-delete
+                            </v-icon>
+                        </template>
+                        <template v-slot:item.attr="{ item }">
+                            {{ dictAttribute[item.attr] }}
+                        </template>
+                        <template v-slot:item.equipped="{ item }">
+                            <v-icon :color="item.equipped ? 'success' : 'error'">{{ item.equipped ? 'done' : 'clear' }}</v-icon>
+                        </template>
+                        <template v-slot:no-data>
+                            Sem armas 
+                        </template>
+                    </v-data-table>                    
+                </v-flex>
             </v-layout>
         </form>
     </v-card-text>
@@ -98,4 +136,44 @@
             </v-flex>
         </v-layout>
     </v-card-actions>
+
+    <v-dialog v-model="dialog" persistent max-width="500">
+        <v-card>
+            <v-card-title class="headline grey lighten-1">{{ dialogTitle }}</v-card-title>
+            <v-card-text>
+                <v-flex xs12 px-3 mb-2>
+                    <v-text-field v-model="dialogForm.name" label="Nome" :loading="loading"
+                        :error-messages="nameDialogErrors" required>
+                    </v-text-field>
+                </v-flex>
+                <v-flex xs12 px-3 mb-2>
+                    <v-text-field type="number" min="0" max="20" v-model="dialogForm.mod" label="Valor do Modo"
+                        :error-messages='modDialogErrors' :loading="loading" required>
+                    </v-text-field>
+                </v-flex>
+                <v-flex xs12 px-3 mb-2>
+                    <v-select v-model="dialogForm.attr" :items="attributesList" item-text="name"
+                        label="Habilidade Especial" :loading="loading" :error-messages="attrDialogErrors">
+                    </v-select>
+                </v-flex>
+                <v-flex>
+                    <v-switch v-model="dialogForm.equipped" label="Equipado"></v-switch>
+                </v-flex>
+            </v-card-text>
+            <v-card-actions>
+
+                <v-btn color="" @click="dialog = false">
+                    Fechar
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" @click="addNewItem" v-if="createNew">
+                    Criar
+                </v-btn>
+
+                <v-btn color="primary" @click="editItem" v-else>
+                    Editar
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </v-card>

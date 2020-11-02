@@ -16,6 +16,7 @@ export default {
                     wisdom: 0,
                     charisma: 0,
                 },
+                weapons: []
             },
             menu: false,
             attributesList: [
@@ -25,8 +26,31 @@ export default {
                 { name: "Inteligência", value: "intelligence" },
                 { name: "Sabedoria", value: "wisdom" },
                 { name: "Carisma", value: "charisma" }
-            ]
-
+            ],
+            dialog: false,
+            dialogTitle: '',
+            dialogForm: { name: '', mod: 0, attr: '', equipped: false },
+            createNew: false,
+            headers: [
+                {
+                    text: 'Nome',
+                    align: 'Name',
+                    value: 'name',
+                },
+                { text: 'Modo', value: 'mod', sortable: false },
+                { text: 'Atributo', value: 'attr', sortable: false },
+                { text: 'Equipada', value: 'equipped' },
+                { text: 'Ações', value: 'actions', sortable: false },
+            ],
+            dictAttribute: {
+                strength: 'Força',
+                dexterity: 'Destreza',
+                constitution: 'Constituição',
+                intelligence: 'Inteligência',
+                wisdom: 'Sabedoria',
+                charisma: 'Carisma',
+            },
+            selectedItem: null,
         }
     },
     validations() {
@@ -46,6 +70,13 @@ export default {
                     charisma: { maxValue: maxValue(20), minValue: minValue(0) },
                 }
             },
+            dialogForm: {
+                name: {
+                    required,
+                },
+                mod: { maxValue: maxValue(20), minValue: minValue(0) },
+                attr: { required }
+            }
         };
 
     },
@@ -100,7 +131,42 @@ export default {
                 .then(() => {
                     this.goToList();
                 })
-        }
+        },
+        openNewItem() {
+            this.dialogTitle = 'Nova Arma';
+            this.$v.dialogForm.$reset();
+            this.dialogForm = { name: '', mod: 0, attr: '', equipped: false };
+            this.createNew = true;
+            this.dialog = true;
+        },
+        selectItem(item) {
+            this.selectedItem = item;
+            this.dialogForm = { name: this.selectedItem.name, mod: this.selectedItem.mod, attr: this.selectedItem.attr, equipped: this.selectedItem.equipped };
+            this.dialogTitle = 'Editar Arma',
+            this.createNew = false;
+            this.dialog = true;
+        },
+        editItem() {
+            this.$v.dialogForm.$touch();
+            if (!this.$v.dialogForm.$invalid) {
+                this.selectedItem.name = this.dialogForm.name;
+                this.selectedItem.mod = this.dialogForm.mod;
+                this.selectedItem.attr = this.dialogForm.attr;
+                this.selectedItem.equipped = this.dialogForm.equipped;
+                this.dialogForm = { name: '', mod: 0, attr: '', equipped: false };
+                this.dialog = false;
+            }
+        },
+        deleteItem(item) {
+            this.form.weapons.splice(this.form.weapons.indexOf(item), 1);
+        },
+        addNewItem() {
+            this.$v.dialogForm.$touch();
+            if (!this.$v.dialogForm.$invalid) {
+                this.form.weapons.push({ ...this.dialogForm });
+                this.dialog = false;
+            }
+        },
     },
     computed: {
         instance() {
@@ -172,8 +238,26 @@ export default {
             !this.$v.form.attributes.charisma.minValue && errors.push('Valor inválido.')
             return errors
         },
-        
-        
-        
+        nameDialogErrors() {
+            const errors = []
+            if (!this.$v.dialogForm.name.$dirty) return errors
+            !this.$v.dialogForm.name.required && errors.push('Escreva um nome.')
+            return errors
+        },
+        modDialogErrors() {
+            const errors = []
+            if (!this.$v.dialogForm.mod.$dirty) return errors
+            !this.$v.dialogForm.mod.maxValue && errors.push('Valor inválido.')
+            !this.$v.dialogForm.mod.minValue && errors.push('Valor inválido.')
+            return errors
+        },
+        attrDialogErrors() {
+            const errors = []
+            if (!this.$v.dialogForm.attr.$dirty) return errors
+            !this.$v.dialogForm.attr.required && errors.push('Escolha a habilidade.')
+            return errors
+        },
+
+
     },
 }
