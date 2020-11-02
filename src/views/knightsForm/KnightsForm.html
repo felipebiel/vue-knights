@@ -89,6 +89,9 @@
                 </v-flex>
 
                 <v-flex xs12 px-3>
+                    <v-alert dense outlined type="error" v-if="weaponsErrors[0]">
+                        {{ weaponsErrors[0] }}
+                    </v-alert>
                     <v-data-table :headers="headers" :items="form.weapons" class="elevation-1">
                         <template v-slot:top>
                             <v-toolbar flat>
@@ -112,12 +115,13 @@
                             {{ dictAttribute[item.attr] }}
                         </template>
                         <template v-slot:item.equipped="{ item }">
-                            <v-icon :color="item.equipped ? 'success' : 'error'">{{ item.equipped ? 'done' : 'clear' }}</v-icon>
+                            <v-icon :color="item.equipped ? 'success' : 'error'">{{ item.equipped ? 'done' : 'clear' }}
+                            </v-icon>
                         </template>
                         <template v-slot:no-data>
-                            Sem armas 
+                            Sem armas
                         </template>
-                    </v-data-table>                    
+                    </v-data-table>
                 </v-flex>
             </v-layout>
         </form>

@@ -1,4 +1,4 @@
-import { required, minValue, maxValue } from 'vuelidate/lib/validators';
+import { required, minValue, maxValue, requiredIf } from 'vuelidate/lib/validators';
 
 export default {
     name: 'KnightsForm',
@@ -31,17 +31,6 @@ export default {
             dialogTitle: '',
             dialogForm: { name: '', mod: 0, attr: '', equipped: false },
             createNew: false,
-            headers: [
-                {
-                    text: 'Nome',
-                    align: 'Name',
-                    value: 'name',
-                },
-                { text: 'Modo', value: 'mod', sortable: false },
-                { text: 'Atributo', value: 'attr', sortable: false },
-                { text: 'Equipada', value: 'equipped' },
-                { text: 'Ações', value: 'actions', sortable: false },
-            ],
             dictAttribute: {
                 strength: 'Força',
                 dexterity: 'Destreza',
@@ -68,7 +57,12 @@ export default {
                     intelligence: { maxValue: maxValue(20), minValue: minValue(0) },
                     wisdom: { maxValue: maxValue(20), minValue: minValue(0) },
                     charisma: { maxValue: maxValue(20), minValue: minValue(0) },
-                }
+                },
+                equippedWeapon: {
+                    required: requiredIf(function () {                        
+                        return !this.isEquipped;
+                    })
+                },
             },
             dialogForm: {
                 name: {
@@ -96,7 +90,7 @@ export default {
             return { ...this.form }
         },
         saveForm() {
-            try {
+            try {                
                 this.$v.form.$touch();
                 if (!this.$v.form.$invalid) {
                     if (this.id) {
@@ -143,7 +137,7 @@ export default {
             this.selectedItem = item;
             this.dialogForm = { name: this.selectedItem.name, mod: this.selectedItem.mod, attr: this.selectedItem.attr, equipped: this.selectedItem.equipped };
             this.dialogTitle = 'Editar Arma',
-            this.createNew = false;
+                this.createNew = false;
             this.dialog = true;
         },
         editItem() {
@@ -169,6 +163,9 @@ export default {
         },
     },
     computed: {
+        isEquipped() {
+            return this.form.weapons.find(element => {return element.equipped})? true : false;
+        },
         instance() {
             return this.$store.state.getRead.instance;
         },
@@ -257,7 +254,37 @@ export default {
             !this.$v.dialogForm.attr.required && errors.push('Escolha a habilidade.')
             return errors
         },
-
-
+        weaponsErrors() {
+            const errors = []
+            if (!this.$v.form.equippedWeapon.$dirty) return errors
+            !this.$v.form.equippedWeapon.required && errors.push('Esolha pelo menos uma arma equipada.')
+            return errors
+        },
+        headers() {
+            if (this.id) {
+                return [
+                    {
+                        text: 'Nome',
+                        align: 'Name',
+                        value: 'name',
+                    },
+                    { text: 'Modo', value: 'mod', sortable: false },
+                    { text: 'Atributo', value: 'attr', sortable: false },
+                    { text: 'Equipada', value: 'equipped' },
+                ];
+            } else {
+                return [
+                    {
+                        text: 'Nome',
+                        align: 'Name',
+                        value: 'name',
+                    },
+                    { text: 'Modo', value: 'mod', sortable: false },
+                    { text: 'Atributo', value: 'attr', sortable: false },
+                    { text: 'Equipada', value: 'equipped' },
+                    { text: 'Ações', value: 'actions', sortable: false },
+                ];
+            }
+        }
     },
 }
