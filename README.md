@@ -1,29 +1,22 @@
-# vue-knights
+# Vue knights
 
-## Project setup
-```
-npm install
-```
+O desafio vue knights consiste em criar um portal para o gerenciamento de guerreiros.
+Esse projeto necessita do [Node back-end knights](https://github.com/felipebiel/node-back-knights) rodando.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Como executar o projeto
 
-### Compiles and minifies for production
-```
-npm run build
-```
+O projeto roda em container docker utilizando o Makefile.
 
-### Run your tests
+1. Para Iniciar o build do container
+```sh
+$ make setup
 ```
-npm run test
+2. Para executar o container do  projeto
+```sh
+$ make start
 ```
 
-### Lints and fixes files
+3. Para encerrar o container do projeto
+```sh
+$ make stop
 ```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
