@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/home/Home.vue'
+import Home from '@/views/home/Home.vue'
+import HallOfHeroes from '@/views/hallOfHeroes/HallOfHeroes.vue'
 import KnightsForm from '@/views/knightsForm/KnightsForm.vue'
 
 Vue.use(VueRouter)
@@ -10,6 +11,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/hall-of-heroes',
+    name: 'hall-of-heroes',
+    component: HallOfHeroes
   },
   {
     path: '/knight/add',

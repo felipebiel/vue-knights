@@ -1,0 +1,29 @@
+<v-card elevation="2">
+    <v-card-title>
+        Esse é o novo Hall Of Heroes
+    </v-card-title>
+    <v-card-text>
+        <v-data-table :headers="headers" :items="dataTable" class="elevation-1">
+            <template v-slot:top>
+                <v-toolbar flat>
+                    <v-toolbar-title>Meus Herois</v-toolbar-title>
+                    <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-spacer></v-spacer>
+                </v-toolbar>
+            </template>
+            <template v-slot:item="props">
+                <tr>
+                    <td>{{ props.item.name }}</td>
+                    <td>{{ getAge(props.item.birthday) }}</td>
+                    <td>{{ props.item.weapons? props.item.weapons.length : 0 }}</td>
+                    <td>{{ dictAttribute[props.item.keyAttribute] }}</td>
+                    <td>{{ getAtack(props.item) }}</td>
+                    <td>{{ getExperience(props.item) }}</td>
+                </tr>
+            </template>
+            <template v-slot:no-data>
+                Sem Heróis cadastrados
+            </template>
+        </v-data-table>
+    </v-card-text>
+</v-card>
