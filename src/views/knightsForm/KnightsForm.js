@@ -135,7 +135,7 @@ export default {
             }
         },
         goToList() {
-            this.$router.push({ name: 'Home' });
+            this.$router.push({ name: 'home' });
         },
         create() {
             const data = this.makeDataPost();
